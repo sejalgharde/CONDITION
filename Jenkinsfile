@@ -18,13 +18,10 @@ pipeline {
 			script {
 			 if ( env.ENVIRONMENT == 'QA' ){
         	sh 'cp target/CONDITION.war /home/sejal/Documents/devops-software/apache-tomcat-9.0.82/webapps'
-        	echo "deployment has been done on QA!"
 			 }
 			elif ( env.ENVIRONMENT == 'UAT' ){
     		sh 'cp target/CONDITION.war /home/sejal/Documents/devops-software/apache-tomcat-9.0.82/webapps'
-    		echo "deployment has been done on UAT!"
 			}
-			echo "deployment has been done!"
 			fi
 			
 			}}}	
