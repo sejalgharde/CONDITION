@@ -1,5 +1,9 @@
 pipeline {
 	agent any
+	
+	parameters {
+		choice(name: 'ENVIRONMENT', choices: ['QA','UAT'], description: 'Pick Environment value')
+	}
 	stages {
 	    stage('Checkout') {
 	        steps {
@@ -12,17 +16,16 @@ pipeline {
 		stage('Deployment'){
 		    steps {
 			script {
-			 if (env.BRANCH_NAME == 'master') 
-                        {
-                        echo 'Hello from main branch'
-                        }
-                    	if (env.BRANCH_NAME == 'null') 
-                        {
-                        echo 'Hello from null branch'
-                        }
-                    	else {
-                        sh "echo 'Hello from ${env.BRANCH_NAME} branch!'"
-                        }
-                    
-			}}}}	
-}
+			 if ( env.ENVIRONMENT == 'QA' ){
+        	sh 'cp target/CONDITION.war /home/sejal/Documents/devops-software/apache-tomcat-9.0.82/webapps'
+        	echo "deployment has been done on QA!"
+			 }
+			elif ( env.ENVIRONMENT == 'UAT' ){
+    		sh 'cp target/CONDITION.war /home/sejal/Documents/devops-software/apache-tomcat-9.0.82/webapps'
+    		echo "deployment has been done on UAT!"
+			}
+			echo "deployment has been done!"
+			fi
+			
+			}}}	
+}}
